@@ -18,8 +18,10 @@ def main():
     for i in range(len(search)):
         print(str(i+1) + '. ' + search[i])
 
-    inp2 = 'Which page are you looking to explore (from {} to {}): \nIf the article you were looking for was not found, enter 0'.format(1, len(search))
+    inp2 = 'Which page are you looking to explore (from {} to {}): \nIf the article you were looking for was not found, enter 0: '.format(1, len(search))
     i = input(inp2)
+
+    # raise a disambiguation error if the article you wanted wasn't found
 
     if i == 0:
         print('We found the following related queries: ')
@@ -29,7 +31,15 @@ def main():
     search_item = search[int(i)-1]
     page_obj = wiki.WikipediaPage(search_item)
     page_obj_html = page_obj.html()
-    print(page_obj_html)
+    # print(page_obj_html)
+
+    soup = bs(page_obj_html)
+    html = soup.prettify().encode('utf-8') 
+    print(html)
+
+    # display related articles in the background
+    # how to find related articles?
+
 
 
     # phtml = wiki.WikipediaPage(search_item)
